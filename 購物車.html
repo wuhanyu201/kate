@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>購物車</title>
+    <style>
+        .title {
+            font-size: 24px;
+            font-weight: bold;
+            color: #030303;
+            text-decoration: none;
+        }
+
+        .title:hover {
+            text-decoration: underline;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        nav a {
+            font-size: 18px;
+            text-decoration: none;
+            color: #fff;
+            margin: 0 15px;
+            padding: 5px 10px;
+            border-radius: 5px;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        nav a:hover {
+            background-color: #ffffff;
+            color: #b8825f;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 20px;
+            background-color: #fff;
+            border-bottom: 1px solid #ddd;
+        }
+
+        header .brand {
+            text-align: center;
+            font-size: 24px;
+            font-weight: bold;
+            flex-grow: 1;
+        }
+
+        header nav {
+            flex-grow: 2;
+            text-align: center;
+        }
+
+        header nav a {
+            margin: 0 10px;
+            text-decoration: none;
+            color: #000;
+        }
+
+        header .icons {
+            display: flex;
+            gap: 10px;
+        }
+
+        header .icons button {
+            background: none;
+            border: none;
+            padding: 0;
+            margin: 0 5px;
+            cursor: pointer;
+        }
+
+        header .icons img {
+            width: 45px;
+            height: 30px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .cart-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 15px 0;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .cart-item img {
+            width: 100px;
+            height: 100px;
+            border-radius: 5px;
+            object-fit: cover;
+        }
+
+        .cart-item-details {
+            flex: 1;
+            padding-left: 20px;
+        }
+
+        .cart-item-title {
+            font-size: 18px;
+            margin-bottom: 5px;
+        }
+
+        .cart-item-price {
+            color: #b8825f;
+            font-size: 16px;
+        }
+
+        .cart-item-remove {
+            color: #b8825f;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .checkout {
+            text-align: right;
+            margin-top: 20px;
+        }
+
+        .checkout button {
+            background-color: #b8825f;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        .checkout button:hover {
+            background-color: #a07154;
+        }
+
+        .quantity-input {
+            width: 50px;
+            text-align: center;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            margin-left: 10px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <a href="kate.html" class="title">KATE</a>
+        <nav>
+            <a href="#">耳環/Earrigs</a>
+            <a href="#">戒指/Rings</a>
+            <a href="#">手鍊/Bracelets</a>
+            <a href="#">項鍊/Necklaces</a>
+            <a href="#">水晶/Crystal</a>
+            <a href="#">琥珀及蜜蠟/Amber</a>
+        </nav>
+        <div class="icons">
+           
+            <a href="購物車.html">
+            <button onclick="goToCart()"><img src="購物車.jpg" alt="購物車">
+            </button></a>
+            <button onclick="goToCart()"><img src="會員.png"alt="會員"></button> 
+            <button id="search-icon" onclick="toggleSearchBar()"><img src="搜尋.png" alt="搜尋">
+            </button>   
+            <div id="search-bar" class="hidden">
+            <input type="text" id="search-input" placeholder="搜尋商品">
+            <button id="search-button" onclick="searchProducts()"></button>
+        </div>
+
+    </header>
+
+    <div class="container">
+        <div id="cart-container">
+            <!-- Cart items will be dynamically loaded here -->
+        </div>
+        <div class="checkout">
+            <div id="total-price">總金額: NT$0</div>
+            <button>結帳</button>
+        </div>
+    </div>
+
+    <script>
+        // Sample cart data
+        const cart = [
+            { id: 1, name: "商品名稱1", price: 500, quantity: 1 },
+            { id: 2, name: "商品名稱2", price: 600, quantity: 1 }
+        ];
+    
+        const cartContainer = document.getElementById("cart-container");
+        const totalPriceElement = document.getElementById("total-price");
+    
+        function renderCart() {
+            cartContainer.innerHTML = "";
+            let total = 0;
+    
+            cart.forEach((item, index) => {
+                total += item.price * item.quantity;
+    
+                const cartItem = document.createElement("div");
+                cartItem.className = "cart-item";
+    
+                cartItem.innerHTML = `
+                    <img src="product${item.id}.jpg" alt="商品圖片">
+                    <div class="cart-item-details">
+                        <input class="cart-item-title" type="text" value="${item.name}" onchange="updateName(${index}, this.value)">
+                        <div>
+                            <span class="cart-item-price">NT$${item.price}</span>
+                            <input class="quantity-input" type="number" value="${item.quantity}" min="1" onchange="updateQuantity(${index}, this.value)">
+                        </div>
+                    </div>
+                    <div class="cart-item-remove" onclick="removeItem(${index})">移除</div>
+                `;
+    
+                cartContainer.appendChild(cartItem);
+            });
+    
+            totalPriceElement.textContent = `總金額: NT$${total}`;
+        }
+    
+        function updateName(index, newName) {
+            cart[index].name = newName;
+            renderCart();
+        }
+    
+        function updateQuantity(index, newQuantity) {
+            cart[index].quantity = parseInt(newQuantity);
+            renderCart();
+        }
+    
+        function removeItem(index) {
+            cart.splice(index, 1);
+            renderCart();
+        }
+    
+        function addToCart(name, price) {
+            const newItem = {
+                id: cart.length + 1, // 模擬唯一ID
+                name: name,
+                price: price,
+                quantity: 1
+            };
+    
+            cart.push(newItem);
+            renderCart();
+        }
+    
+        renderCart();
+
+        function renderCart() {
+    cartContainer.innerHTML = "";
+    let total = 0;
+
+    cart.forEach((item, index) => {
+        total += item.price * item.quantity;
+
+        const cartItem = document.createElement("div");
+        cartItem.className = "cart-item";
+
+        cartItem.innerHTML = `
+            <img src="product${item.id}.jpg" alt="商品圖片">
+            <div class="cart-item-details">
+                <input class="cart-item-title" type="text" value="${item.name}" onchange="updateName(${index}, this.value)">
+                <div>
+                    <span class="cart-item-price">NT$${item.price}</span>
+                    <input class="quantity-input" type="number" value="${item.quantity}" min="1" onchange="updateQuantity(${index}, this.value)">
+                </div>
+            </div>
+            <div class="cart-item-remove" onclick="removeItem(${index})">移除</div>
+        `;
+
+        cartContainer.appendChild(cartItem);
+    });
+
+    totalPriceElement.textContent = `總金額: NT$${total}`;
+}
+
+    </script>
+</body>
+</html>

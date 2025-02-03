@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>註冊會員</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f5;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 20px;
+            background-color: #fff;
+            border-bottom: 1px solid #ddd;
+        }
+
+        header .title {
+            font-size: 24px;
+            font-weight: bold;
+            color: #030303;
+            text-decoration: none;
+        }
+
+        header .title:hover {
+            text-decoration: underline;
+        }
+
+        nav a {
+            font-size: 16px;
+            text-decoration: none;
+            color: #000;
+            margin: 0 10px;
+            padding: 5px 10px;
+            border-radius: 5px;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        nav a:hover {
+            background-color: #ddd;
+            color: #000;
+        }
+
+        .icons img {
+            width: 30px;
+            height: 30px;
+            margin-left: 10px;
+        }
+
+        .register-container {
+            background-color: #fff;
+            width: 400px;
+            margin: 50px auto;
+            padding: 20px 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .register-container h1 {
+            font-size: 24px;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+            text-align: left;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 14px;
+            margin-bottom: 5px;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+
+        .form-group input:focus {
+            border-color: #b8825f;
+            outline: none;
+        }
+
+        .submit-btn {
+            width: 100%;
+            background-color: #b8825f;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            padding: 10px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .submit-btn:hover {
+            background-color: #a07154;
+        }
+
+        .login-link {
+            margin-top: 15px;
+            font-size: 14px;
+            color: #b8825f;
+        }
+
+        .login-link a {
+            color: #b8825f;
+            text-decoration: none;
+        }
+
+        .login-link a:hover {
+            text-decoration: underline;
+        }
+
+        header .brand {
+            text-align: center;
+            font-size: 24px;
+            font-weight: bold;
+            flex-grow: 1;
+        }
+        header nav {
+            flex-grow: 2;
+            text-align: center;
+        }
+        header nav a {
+            margin: 0 10px;
+            text-decoration: none;
+            color: #000;
+        }
+        header .icons {
+            display: flex;
+            gap: 10px;
+        }
+        header .icons button {
+        background: none; /* 去除底色 */
+        border: none; /* 去除邊框 */
+        padding: 0; /* 確保按鈕沒有內邊距 */
+        margin: 0 5px; /* 可選：調整按鈕之間的間距 */
+        cursor: pointer; /* 顯示為可點擊的手型 */
+        }
+
+        header .icons img {
+            width: 45px;
+            height: 30px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <a href="kate.html" class="title">KATE</a>
+        <nav>
+            <a href="#">耳環/Earrings</a>
+            <a href="#">戒指/Rings</a>
+            <a href="#">手鍊/Bracelets</a>
+            <a href="#">項鍊/Necklaces</a>
+            <a href="#">水晶/Crystal</a>
+            <a href="#">琥珀及蜜蠟/Amber</a>
+        </nav>
+        <div class="icons">
+            <img src="搜尋.png" alt="搜尋">
+            <img src="購物車.jpg" alt="購物車">
+            <img src="會員.png" alt="會員">
+        </div>
+    </header>
+
+    <div class="register-container">
+        <h1>註冊會員</h1>
+        <form id="register-form" onsubmit="register(event)">
+            <div class="form-group">
+                <label for="username">帳號</label>
+                <input type="text" id="username" name="username" placeholder="輸入帳號" required>
+            </div>
+            <div class="form-group">
+                <label for="email">電子郵件</label>
+                <input type="email" id="email" name="email" placeholder="輸入電子郵件" required>
+            </div>
+            <div class="form-group">
+                <label for="password">密碼</label>
+                <input type="password" id="password" name="password" placeholder="輸入密碼" required>
+            </div>
+            <div class="form-group">
+                <label for="confirm-password">確認密碼</label>
+                <input type="password" id="confirm-password" name="confirm-password" placeholder="再次輸入密碼" required>
+            </div>
+            <button type="submit" class="submit-btn">註冊</button>
+        </form>
+        <div class="login-link">
+            已有帳號？<a href="會員.html">登入</a>
+        </div>
+    </div>
+
+    <script>
+        function register(event) {
+            event.preventDefault(); // 防止表單提交
+            const username = document.getElementById("username").value;
+            const email = document.getElementById("email").value;
+            const password = document.getElementById("password").value;
+            const confirmPassword = document.getElementById("confirm-password").value;
+
+            if (password !== confirmPassword) {
+                alert("密碼不一致，請重新輸入！");
+                return;
+            }
+
+            // 模擬儲存資料，實際應將資料傳到後端
+            alert(`註冊成功！\n帳號：${username}\n電子郵件：${email}`);
+            window.location.href = "會員.html"; // 跳轉至登入頁面
+        }
+    </script>
+</body>
+</html>

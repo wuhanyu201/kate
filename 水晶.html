@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KATE</title>
+    <style>
+        .title {
+        font-size: 24px;
+        font-weight: bold;
+        color: #030303; /* 藍色標題 */
+        text-decoration: none; /* 移除下劃線 */
+        }
+
+        .title:hover {
+        text-decoration: underline; /* 滑鼠移上時顯示下劃線 */
+        
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        nav a {
+            font-size: 18px;
+            text-decoration: none;
+            color: #fff;
+            margin: 0 15px;
+            padding: 5px 10px;
+            border-radius: 5px;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        nav a:hover {
+            background-color: #ffffff;
+            color: #b8825f;
+        }
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 20px;
+            background-color: #fff;
+            border-bottom: 1px solid #ddd;
+        }
+        header .brand {
+            text-align: center;
+            font-size: 24px;
+            font-weight: bold;
+            flex-grow: 1;
+        }
+        header nav {
+            flex-grow: 2;
+            text-align: center;
+        }
+        header nav a {
+            margin: 0 10px;
+            text-decoration: none;
+            color: #000;
+        }
+        header .icons {
+            display: flex;
+            gap: 10px;
+        }
+        header .icons button {
+        background: none; /* 去除底色 */
+        border: none; /* 去除邊框 */
+        padding: 0; /* 確保按鈕沒有內邊距 */
+        margin: 0 5px; /* 可選：調整按鈕之間的間距 */
+        cursor: pointer; /* 顯示為可點擊的手型 */
+        }
+
+        header .icons img {
+            width: 45px;
+            height: 30px;
+        }
+        .categories {
+            text-align: center;
+            padding: 10px 0;
+            background-color: #f9f9f9;
+            border-bottom: 1px solid #ddd;
+        }
+        .categories a {
+            margin: 0 15px;
+            text-decoration: none;
+            color: #000;
+            font-size: 14px;
+        }
+        .container {
+            padding: 20px;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+        }
+
+        .product {
+            text-align: center;
+            overflow: hidden;
+            transition: transform 0.3s, box-shadow 0.3s;
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            padding: 10px;
+        }
+
+        .product:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .product img {
+            width: 100%;
+            max-width: 200px;
+            height: auto;
+            transition: transform 0.3s;
+        }
+
+        .product:hover img {
+            transform: scale(1.1);
+        }
+
+        .product h4 {
+            font-size: 16px;
+            margin: 10px 0;
+        }
+        .product p {
+            font-size: 16.5px;
+            color: #000000;
+        }
+
+        
+        .action-buttons {
+        display: flex; /* 使用 flexbox 讓按鈕排列在一行 */
+        gap: 10px; /* 調整按鈕之間的間距 */
+        }
+
+        .responsive-icon {
+        width: 45px;
+        height: 30px;
+        object-fit: contain; /* 保持比例，並適應框架 */
+        }
+
+        .add-to-cart {
+            background-color: #b8825f;
+            color: white;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        .add-to-cart:hover {
+            background-color: #b8825f;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <a href="kate.html" class="title">KATE</a>
+        <nav>
+            <a href="耳環.html">耳環/Earrigs</a>
+            <a href="戒指.html">戒指/Rings</a>
+            <a href="手鍊1.html">手鍊/Bracelets</a>
+            <a href="項鍊.html">項鍊/Necklaces</a>
+            <a href="水晶.html">水晶/Crystal</a>
+            <a href="琥珀.html">琥珀及蜜蠟/Amber</a>
+        </nav>
+        <div class="icons">
+           
+            <a href="購物車.html">
+            <button onclick="goToCart()"><img src="購物車.jpg" alt="購物車">
+            </button></a>
+            <button onclick="goToCart()"><img src="會員.png"alt="會員"></button> 
+            <button id="search-icon" onclick="toggleSearchBar()"><img src="搜尋.png" alt="搜尋">
+            </button>   
+            <div id="search-bar" class="hidden">
+            <input type="text" id="search-input" placeholder="搜尋商品">
+            <button id="search-button" onclick="searchProducts()"></button>
+        </div>
+
+    </header>
+    <div class="container">
+
+        <div class="product">
+            <a href="小飛龍.html"><img src="小飛龍.jpg" alt="小飛龍"></a>
+            <h4>小飛龍項鍊[天然黃水晶][純銀]</h4>
+            <img src="icon.png" alt="加入購物車" style="width: 200px; height: 75px;">
+            <p>NT$2,380</p>
+        </div>
+        <div class="product">
+            <a href="愛心.html"><img src="愛心.jpg" alt="愛心項鍊"></a>
+            <h4>小愛心項鍊[天然水藍拓帕石][純銀]</h4>
+            <img src="icon.png" alt="加入購物車" style="width: 200px; height: 75px;">
+            <p>NT$1,680</p>
+        </div>
+        <div class="product">
+            <a href="方形耳環.html"><img src="耳環.jpg" alt="方形耳環"></a>
+            <h4>簡約方形耳環[天然粉晶][純銀]</h4>
+            <img src="icon.png" alt="加入購物車" style="width: 200px; height: 75px;">
+            <p>NT$1,280</p>
+        </div>
+</div>
+</body>
+</html>
